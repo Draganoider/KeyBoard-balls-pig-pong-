@@ -4,7 +4,9 @@
 #include "windows.h"
 #include <math.h> 
 #include <cmath>
+#include <string>
 
+using namespace std;
 
 
 int main()
@@ -41,9 +43,48 @@ int main()
 
 
 
+    
+    int score1 = 0;
+    int score2 = 0;
+    int textsize = 100;
+   
+    sf::Font font;
+    font.loadFromFile("arial.ttf");
+    
 
 
 
+    sf::Text text;
+
+    // select the font
+    text.setFont(font); // font is a sf::Font
+
+    // set the string to display
+    //text.setString(str);
+
+    text.setCharacterSize(textsize);
+
+    text.setFillColor(sf::Color::Blue);
+
+
+
+    sf::Text text1;
+
+    // select the font
+    text1.setFont(font); // font is a sf::Font
+
+    // set the string to display
+    //text.setString(str);
+
+    text1.setCharacterSize(textsize);
+
+    text1.setFillColor(sf::Color::Red);
+
+
+
+
+
+    
 
 
     shape = sf::CircleShape(D);
@@ -71,16 +112,29 @@ int main()
         window.clear(sf::Color::Cyan);
 
 
+        
+        text.setPosition(500 - textsize, 500 - textsize);
 
+        text1.setPosition(500 + textsize, 500 - textsize);
+
+        std::string str1 = "" + std::to_string(score1);
+        std::string str2 = "" + std::to_string(score2);
+
+        text.setString(str1);
+        window.draw(text);
+        
+        text1.setString(str2);
+        window.draw(text1);
         
 
+        
        
         if (!p)
         {
             
             
-                curentx = 500 - D;
-                curenty = 500 - D;
+                curentx = 500 - D * 2;
+                curenty = 500 - D * 2;
 
                 shape.setPosition(curentx, curenty);
                 rectangle1.setPosition(450, 885);
@@ -143,22 +197,52 @@ int main()
             dx = -dx;
         }
 
-        if (newy >= trueresolutiony)
-        {
-
-        }
 
         if (newx <= 0)
         {
             dx = -dx;
         }
 
-        if (newy <= 0)
-        {
-
-        }
+      
 
         shape.setPosition(newx, newy);
+
+        if (newy >= trueresolutiony - 100)
+        {
+            curentx = 500 - D * 2;
+            curenty = 500 - D * 2;
+            newy = 300;
+            newx = 300;
+
+            shape.setPosition(curentx, curenty);
+            dx = 5;
+            dy = -5;
+            rectangle1.setPosition(450, 885);
+            rectangle2.setPosition(450, 115);
+            Sleep(1500);
+            
+            score1++;
+        }
+
+        if (newy <= 100)
+        {
+            curentx = 500 - D * 2;
+            curenty = 500 - D * 2;
+            newy = 0;
+            newx = 0;
+            
+            shape.setPosition(curentx, curenty);
+            
+            dx = 5;
+            dy = 5;
+            rectangle1.setPosition(450, 885);
+            rectangle2.setPosition(450, 115);
+            Sleep(1500);
+            
+
+            score2++;
+            
+        }
 
 
         window.draw(shape);
